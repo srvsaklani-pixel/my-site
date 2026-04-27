@@ -1,0 +1,889 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <title>Mining - Test Replica</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/bootstrap.min.css" rel="stylesheet">
+    
+    <style type="text/css">
+        .textboxForm {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -o-border-radius: 3px;
+            -xhtml-border-radius: 3px;
+            -ms-border-radius: 3px;
+            height: 22px;
+            width: 236px;
+            border: 1px solid #848484;
+            outline: 0;
+        }
+
+        .textboxForm:focus {
+            outline: none;
+            border-color: #9ecaed;
+            box-shadow: 0 0 10px #9ecaed;
+        }
+
+        .ddlstyleForm {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -o-border-radius: 3px;
+            -o-xhtml-radius: 3px;
+            border-radius: 3px;
+            -khtml-border-radius: 3px;
+            height: 25px;
+            width: 160px;
+            border: 1px solid #848484;
+            outline: 0;
+            padding-left: 1px;
+        }
+
+        .auto-style1 {
+            height: 20px;
+        }
+
+        .textbox1 {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -o-border-radius: 3px;
+            -xhtml-border-radius: 3px;
+            -ms-border-radius: 3px;
+            border: 1px solid #848484;
+            outline: 0;
+            height: 22px;
+            width: 23px;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .style11 {
+            height: 30px;
+        }
+
+        .style14 {
+            width: 250px;
+        }
+
+        .style15 {
+            width: 160px;
+        }
+
+        .style17 {
+            width: 168px;
+        }
+
+        .stock {
+            margin-top: -10px;
+            margin-left: 20px;
+            color: navy;
+            font-size: 15px;
+        }
+
+        .stock span {
+            text-decoration: underline;
+            background: lavender;
+        }
+
+        .rdolist tr td {
+            padding-right: 15px;
+        }
+
+        .rdolist tr td [type="radio"] {
+            margin-right: 3px;
+        }
+
+        .infoSpan {
+            color: #d13737;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .button {
+            padding: 8px 16px;
+            background-color: #162470;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .button:hover {
+            background-color: #0f1850;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f5f5f5;
+        }
+
+        .normal {
+            background-color: white;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #CCCCCC;
+            height: 1px;
+            margin-bottom: 25px;
+        }
+
+        #styleTopBar {
+            position: relative;
+            display: block;
+            height: 34px;
+            background: transparent;
+            font-family: Georgia, Arial, Verdana, Helvetica, sans-serif;
+            font-size: 14px;
+            color: Gray;
+            border-top: 2px solid #B30000;
+            padding-top: 7px;
+            vertical-align: middle;
+            text-align: left;
+        }
+
+        .siteTitle {
+            color: #162470;
+            font-size: 32px;
+            font-family: Georgia;
+        }
+
+        .aspNetDisabled {
+            opacity: 0.6;
+        }
+
+        .modalPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #FFFFFF;
+            width: 800px;
+            border: 3px solid #162470;
+            z-index: 1000;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modalPopup .header {
+            background-color: #162470;
+            height: 30px;
+            color: White;
+            line-height: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .modalPopup .body {
+            min-height: 30px;
+            padding: 20px;
+            line-height: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .modalPopup .footer {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .modalBackground {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+        }
+
+        .decimal {
+            /* Class for decimal inputs */
+        }
+    </style>
+
+    <script type="text/javascript">
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+        function ValidateAlpha(event) {
+            var keyCode = (event.which) ? event.which : event.keyCode
+            if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32 && keyCode != 8)
+                return false;
+            return true;
+        }
+
+        function ClientMobileValidate(source, arguments) {
+            arguments.IsValid = false;
+            if (!(isNaN(arguments.Value))) {
+                arguments.IsValid = true;
+            }
+            if (arguments.Value.length == 10) {
+                arguments.IsValid = true;
+            }
+            else {
+                arguments.IsValid = false;
+            }
+        }
+
+        function pageLoad() {
+            $('#ContentPlaceHolder1_txtTravelDistance').keyup(function () {
+                var dType = "SC,ST,SP";
+                var pDist = "60,66,67,68";
+                var dTp = $('#ContentPlaceHolder1_hfDealerType').val();
+                var d = $('#ContentPlaceHolder1_hfDistrict').val();
+                var t = 4;
+
+                if (dType.includes(dTp) && pDist.includes(d)) {
+                    t = 5
+                }
+                else if (dType.includes(dTp) && pDist.includes(d) == false) {
+                    t = 6;
+                }
+                else if (pDist.includes(d)) {
+                    t = 3;
+                }
+                var distance = parseFloat(this.value) || 0.0;
+                var hour = Math.floor((distance * t) / 60);
+                var min = (distance * t) % 60;
+                if (hour == null) hour = 0;
+                if (min == null) min = 0;
+
+                var dy = Math.floor(hour / 24);
+                var hr = hour % 24;
+
+                var maxDist = Math.floor(300.00);
+
+                dType = "SC,SP";
+                if ($('#ContentPlaceHolder1_hfMovement').val() == '2' && dType.includes(dTp)) {
+                    maxDist = Math.floor(400.00);
+                }
+
+                if (distance > maxDist) {
+                    $('#ContentPlaceHolder1_lblMessage').text("!!! Please CHECK the distance. Max Distance " + maxDist + " KM only.");
+                    $('#ContentPlaceHolder1_txtTravelDistance').css("border", "1px solid red");
+                    $('#ContentPlaceHolder1_txtTravelDistance').val('');
+                }
+                else {
+                    $('#ContentPlaceHolder1_lblMessage').text("");
+                    $('#ContentPlaceHolder1_txtTravelDistance').css("border", "1px solid gray");
+                }
+
+                $('#ContentPlaceHolder1_txtHours').val(hour);
+                $('#ContentPlaceHolder1_txtMinutes').val(min);
+            });
+
+            $('.decimal').keypress(function (event) {
+                if ((event.which != 46 || $(this).val().indexOf('.') != -1) &&
+                    ((event.which < 48 || event.which > 57) &&
+                        (event.which != 0 && event.which != 8))) {
+                    event.preventDefault();
+                }
+                var text = $(this).val();
+                if ((text.indexOf('.') != -1) &&
+                    (text.substring(text.indexOf('.')).length > 2) &&
+                    (event.which != 0 && event.which != 8)) {
+                    event.preventDefault();
+                }
+            });
+
+            $(".calculate").each(function () {
+                $(this).keyup(function () {
+                    calculateVolumn();
+                });
+            });
+
+            $(".cal").each(function () {
+                $(this).keyup(function () {
+                    calculatevat();
+                });
+            });
+        }
+
+        function calculateVolumn() {
+            var weight = 0;
+            var volume = 0;
+            var cap_in_hand = 0;
+
+            var seller = 'ST67027339';
+            $(".calculate").each(function () {
+                if (!isNaN(this.value) && this.value.length != 0) {
+                    volume = (parseFloat(this.value) / 2.2);
+                    weight = parseFloat(this.value);
+                    cap_in_hand = parseFloat($('#ContentPlaceHolder1_lblCapinHand').text());
+                }
+                else if (this.value.length != 0) {
+                    $(this).css("background-color", "red");
+                }
+            });
+
+            if (seller.substring(0, 2) == 'SC' || seller.substring(0, 2) == 'SP') {
+                if (parseFloat(weight) > parseFloat(90.00) || parseFloat(weight) > parseFloat(cap_in_hand)) {
+                    alert("Weight can't be more than 90 Tons or your capacity in hand (" + cap_in_hand + " Tons)");
+                    $('#ContentPlaceHolder1_txtweight').val('');
+                    $('#ContentPlaceHolder1_txtweight').focus();
+                }
+            }
+            else if (parseFloat(weight) > parseFloat(70.00) || parseFloat(weight) > parseFloat(cap_in_hand)) {
+                alert("Weight can't be more than 70 Tons or your capacity in hand (" + cap_in_hand + " Tons)");
+                $('#ContentPlaceHolder1_txtweight').val('');
+                $('#ContentPlaceHolder1_txtweight').focus();
+            }
+        }
+
+        function calculatevat() {
+            var sum = 0;
+            $('#ContentPlaceHolder1_txtVat').attr('readonly', true);
+            var salevalue = parseFloat($('#ContentPlaceHolder1_txtsalevalue').val()).toFixed();
+            var ddlvat = document.getElementById("ContentPlaceHolder1_ddlVat");
+            var rot = parseFloat(ddlvat.value);
+            if (!isNaN(salevalue) && !isNaN(rot) && rot != -1) {
+                var vat = (salevalue * rot) / (rot - 0 + 100);
+                $('#ContentPlaceHolder1_txtVat').val(vat.toFixed(2));
+            }
+            else
+                $('#ContentPlaceHolder1_txtVat').val('');
+        }
+
+        var i = 1;
+        function moveCursor(fromTextBox, toTextBox) {
+            var length = fromTextBox.value.length;
+            var maxLength = fromTextBox.getAttribute("MaxLength");
+
+            if (length == maxLength) {
+                if (i == 1) {
+                    $('#ContentPlaceHolder1_txtregno1').focus();
+                    i++;
+                }
+                else if (i == 2) {
+                    $('#ContentPlaceHolder1_txtregno2').focus();
+                    i++;
+                }
+                else if (i == 3) {
+                    $('#ContentPlaceHolder1_txtregno3').focus();
+                    i = 4;
+                }
+                else if (i == 4) {
+                    $('#ContentPlaceHolder1_txtdrivername').focus();
+                    i = 1;
+                }
+
+                var regNo =
+                    $("#ContentPlaceHolder1_txtregno").val() +
+                    $("#ContentPlaceHolder1_txtregno1").val() +
+                    $("#ContentPlaceHolder1_txtregno2").val() +
+                    $("#ContentPlaceHolder1_txtregno3").val();
+
+                if (validateRegNo(regNo)) {
+                    // Mock AJAX response for testing
+                    $("#ContentPlaceHolder1_ddltypevehicle").val("1 ");
+                    $("#spnVehInfo").text("✔️ Vehicle found.");
+                    $("#spnVehInfo").css("color", "green");
+                }
+            }
+        }
+
+        function validateRegNo(reg) {
+            reg = reg.toUpperCase().replace(/[\s-]/g, "");
+            var re = /^[A-Z]{2}(?:\d{1,2}[A-Z]{1,2}|[A-Z]{1,2}|\d{1,2})\d{4}$/;
+            return re.test(reg);
+        }
+
+        function toUpperText(ctrl) {
+            ctrl.value = ctrl.value.toUpperCase();
+        }
+
+        function validateMinLength(ctrl) {
+            var minLength = 8;
+            if (ctrl.value.trim().length < minLength) {
+                document.getElementById('spnPaperSrNoerror').textContent = "Minimum " + minLength + " characters required.";
+                ctrl.focus();
+            }
+            else {
+                document.getElementById('spnPaperSrNoerror').textContent = "";
+            }
+        }
+
+        function showPreview() {
+            // Populate preview
+            $('#ContentPlaceHolder1_lblPreviewSPNo').text(
+                $('#ContentPlaceHolder1_txtPaperDept').val() + 
+                $('#ContentPlaceHolder1_txtPaperSeries').val() + 
+                $('#ContentPlaceHolder1_txtPaperSrNo').val()
+            );
+            $('#ContentPlaceHolder1_lbltypeofvehicle').text($('#ContentPlaceHolder1_ddltypevehicle option:selected').text());
+            $('#ContentPlaceHolder1_lblvehicleno').text(
+                $('#ContentPlaceHolder1_txtregno').val() + 
+                $('#ContentPlaceHolder1_txtregno1').val() + 
+                $('#ContentPlaceHolder1_txtregno2').val() + 
+                $('#ContentPlaceHolder1_txtregno3').val()
+            );
+            $('#ContentPlaceHolder1_lblnameofdriver').text($('#ContentPlaceHolder1_txtdrivername').val());
+            $('#ContentPlaceHolder1_lbldrivermobileno').text($('#ContentPlaceHolder1_txtmobileno').val());
+            $('#ContentPlaceHolder1_lblmineralname').text($('#ContentPlaceHolder1_ddlmineral option:selected').text());
+            $('#ContentPlaceHolder1_lblmineralweight').text($('#ContentPlaceHolder1_txtweight').val());
+            $('#ContentPlaceHolder1_lblsalevalue').text($('#ContentPlaceHolder1_txtsalevalue').val());
+            $('#ContentPlaceHolder1_lblrateoftax').text($('#ContentPlaceHolder1_ddlVat').val() + '%');
+            $('#ContentPlaceHolder1_lblpurchasername').text($('#ContentPlaceHolder1_txtnamepurchaser').val());
+            $('#ContentPlaceHolder1_lbldestinationaddress').text($('#ContentPlaceHolder1_txtadddress').val());
+
+            $('.modalBackground').show();
+            $('#ContentPlaceHolder1_PanelPreview').show();
+        }
+
+        function closePreview() {
+            $('.modalBackground').hide();
+            $('#ContentPlaceHolder1_PanelPreview').hide();
+        }
+
+        function submitForm() {
+            alert('Form submitted successfully! (Test Mode)');
+            $('.modalBackground').show();
+            $('#ContentPlaceHolder1_PanelDownload').show();
+        }
+
+        function downloadPDF() {
+            alert('PDF Download functionality - This would download the generated PDF in production');
+            $('.modalBackground').hide();
+            $('#ContentPlaceHolder1_PanelDownload').hide();
+        }
+
+        function closeDownload() {
+            $('.modalBackground').hide();
+            $('#ContentPlaceHolder1_PanelDownload').hide();
+        }
+
+        $(document).ready(function() {
+            pageLoad();
+        });
+    </script>
+</head>
+<body>
+    <form method="post" action="#" id="form1" autocomplete="off">
+        <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+        <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+        <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="" />
+        <input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="3FA43C38" />
+
+        <div style="text-align: center;">
+            <table class="normal" cellspacing="0" cellpadding="2" width="1161" align="center" border="0">
+                <tr>
+                    <td style="background-color: White;" valign="top">
+                        <table cellspacing="5" cellpadding="0" width="1161" border="0">
+                            <tr>
+                                <td colspan="2">
+                                    <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td align="left" style="width: 99%; padding-bottom: 1px">
+                                                <div id="sch_header">
+                                                    <div id="site_title">
+                                                        <h1>
+                                                            <table style="text-align: left">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style="width: 85px; height: 85px; background-color: #162470; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">LOGO</div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span class="siteTitle">Department of Geology and Mining, Uttarakhand </span>
+                                                                            <span style="margin-left: 420px">Ver1.1</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div id="styleTopBar" style="padding-left: 5px">
+                                                    <table cellpadding="0" cellspacing="0" style="width: 100%">
+                                                        <tr>
+                                                            <td style="text-align: left; font-family: Lucida Grande; padding-left: 5px; font-size: 16px; color: #162470">
+                                                                <span style='color: #162470;'>Registration No: ST67027339 | Lessee/Licensee Name: KAILASH RIVER BED MINERALS LLP | License Type: Stockist | District: US Nagar</span>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" style="padding: 10px; width: 100%">
+                                    <div id="ContentPlaceHolder1_UpdatePanel1">
+                                        <div id="ContentPlaceHolder1_Panelformj">
+                                            <table width="100%">
+                                                <tr>
+                                                    <th colspan="5" class="auto-style1">
+                                                        <h5 style="color: #162470; font-family: Times New Roman; text-align: center; width: 100%">
+                                                            Generate Form J/Form N :: Capacity in hand
+                                                            <span id="ContentPlaceHolder1_lblCapinHand">21125.92</span> Tons
+                                                            <span class="time" style="padding-left: 100px"></span>
+                                                            <span id="ContentPlaceHolder1_lblTotal_MRC_Cap">Mineral Cess Balance: Rs. </span>
+                                                            <span id="ContentPlaceHolder1_lblTotal_MRC">52815.25</span>
+                                                        </h5>
+                                                        <div id="ContentPlaceHolder1_divStock" class="stock">
+                                                            <span>Mineral Stock => </span> &nbsp; RBM Mixed : 21125.92 &nbsp;|
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="5" style="background-color: #808080; color: #EEEEEE; font-size: medium; font-family: Times New Roman">
+                                                        <center>Type of Movement</center>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5" align="center">
+                                                        <table id="rbtypemovemnet" class="rdolist">
+                                                            <tr>
+                                                                <td><input id="rbtypemovemnet_0" type="radio" name="rbtypemovemnet" value="1" checked="checked" /><label for="rbtypemovemnet_0">Within State</label></td>
+                                                                <td><input id="rbtypemovemnet_1" type="radio" name="rbtypemovemnet" value="2" /><label for="rbtypemovemnet_1">Outside State</label></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="style17">Name of Mineral</td>
+                                                    <td class="style14">
+                                                        <select name="ContentPlaceHolder1_ddlmineral" id="ContentPlaceHolder1_ddlmineral" class="ddlstyleForm">
+                                                            <option selected="selected" value="0">Select Minerals</option>
+                                                            <option value="4">RBM Mixed</option>
+                                                        </select>
+                                                        <span id="ContentPlaceHolder1_rfvnameofm" style="display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_ValidatorCalloutExtender1_ClientState" id="ContentPlaceHolder1_ValidatorCalloutExtender1_ClientState" />
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="style15">Weight of Mineral</td>
+                                                    <td>
+                                                        <input name="ContentPlaceHolder1_txtweight" type="text" maxlength="5" id="ContentPlaceHolder1_txtweight" class="calculate textboxForm decimal" style="width:160px;" />&nbsp;
+                                                        <span class="infoSpan">(Tons)</span>
+                                                        <span id="ContentPlaceHolder1_rfvweight" style="color:Red;display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_ValidatorCalloutExtender6_ClientState" id="ContentPlaceHolder1_ValidatorCalloutExtender6_ClientState" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="style17">&nbsp;</td>
+                                                    <td class="style14">&nbsp;</td>
+                                                    <td>&nbsp;</td>
+                                                    <td class="style15">&nbsp;</td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="5" style="background-color: #808080; color: #EEEEEE; font-size: medium; font-family: Times New Roman">
+                                                        <center>Purchaser Information</center>
+                                                    </th>
+                                                </tr>
+                                                <tr id="ContentPlaceHolder1_trreg">
+                                                    <td colspan="5" align="center" class="style11">
+                                                        <table id="ContentPlaceHolder1_rbltypepurchaser" class="rdolist">
+                                                            <tr>
+                                                                <td><input id="ContentPlaceHolder1_rbltypepurchaser_0" type="radio" name="ContentPlaceHolder1_rbltypepurchaser" value="1" checked="checked" /><label for="ContentPlaceHolder1_rbltypepurchaser_0">Registerd</label></td>
+                                                                <td><input id="ContentPlaceHolder1_rbltypepurchaser_1" type="radio" name="ContentPlaceHolder1_rbltypepurchaser" value="2" /><label for="ContentPlaceHolder1_rbltypepurchaser_1">Unregisterd</label></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr id="ContentPlaceHolder1_trpurchaser">
+                                                    <td class="style17">Registration Number</td>
+                                                    <td class="style14">
+                                                        <input name="ContentPlaceHolder1_txtPurchaserRegistrationNo" type="text" maxlength="10" id="ContentPlaceHolder1_txtPurchaserRegistrationNo" class="textboxForm" style="text-transform: uppercase;" />
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="style15">Lease Type</td>
+                                                    <td>
+                                                        <input name="ContentPlaceHolder1_txtLeaseType" type="text" readonly="readonly" id="ContentPlaceHolder1_txtLeaseType" class="textboxForm" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="style17">Purchaser/Firm Name</td>
+                                                    <td class="style14">
+                                                        <input name="ContentPlaceHolder1_txtnamepurchaser" type="text" maxlength="35" readonly="readonly" id="ContentPlaceHolder1_txtnamepurchaser" class="textboxForm" />
+                                                        <span id="ContentPlaceHolder1_rfvnamepuchaser" style="display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_ValidatorCalloutExtender22_ClientState" id="ContentPlaceHolder1_ValidatorCalloutExtender22_ClientState" />
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="style15" rowspan="2">Address of purchaser</td>
+                                                    <td rowspan="2" valign="top">
+                                                        <textarea name="ContentPlaceHolder1_txtadddress" rows="2" cols="20" readonly="readonly" id="ContentPlaceHolder1_txtadddress" class="textboxForm address" style="height:46px;width:236px;resize: none"></textarea>
+                                                        <span id="ContentPlaceHolder1_rfvaddress" style="display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_ValidatorCalloutExtender20_ClientState" id="ContentPlaceHolder1_ValidatorCalloutExtender20_ClientState" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="style17">Rate of CGST+SGST(%)</td>
+                                                    <td class="style14">
+                                                        <select name="ContentPlaceHolder1_ddlVat" id="ContentPlaceHolder1_ddlVat" class="ddlstyleForm" style="width:100px;">
+                                                            <option selected="selected" value="-1">Select</option>
+                                                            <option value="0.00">0.00 %</option>
+                                                            <option value="5.00">5.00 %</option>
+                                                            <option value="18.00">18.00 %</option>
+                                                        </select>
+                                                        <span id="ContentPlaceHolder1_rfvrattax" style="display:none;"></span>
+                                                        <span class="infoSpan">(% of Sale Value) </span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_ValidatorCalloutExtender13_ClientState" id="ContentPlaceHolder1_ValidatorCalloutExtender13_ClientState" />
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="style17">Sale Value (With Tax)</td>
+                                                    <td class="style14">
+                                                        <input name="ContentPlaceHolder1_txtsalevalue" type="text" maxlength="7" id="ContentPlaceHolder1_txtsalevalue" class="textboxForm cal decimal" onkeypress="return isNumberKey(event)" style="width: 190px" />
+                                                        <span class="infoSpan">(Rupees) </span>
+                                                        <span id="ContentPlaceHolder1_rfvsale" style="display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_ValidatorCalloutExtender11_ClientState" id="ContentPlaceHolder1_ValidatorCalloutExtender11_ClientState" />
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                    <td class="style15">SGST+CGST (Rs.)</td>
+                                                    <td>
+                                                        <input name="ContentPlaceHolder1_txtVat" type="text" maxlength="10" id="ContentPlaceHolder1_txtVat" class="textboxForm cal" onkeypress="return isNumberKey(event)" style="width:184px;" />&nbsp;
+                                                        <span class="infoSpan">(Rupees)</span>
+                                                        <span id="ContentPlaceHolder1_rfvvat" style="display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_ValidatorCalloutExtender12_ClientState" id="ContentPlaceHolder1_ValidatorCalloutExtender12_ClientState" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="style17">&nbsp;</td>
+                                                    <td class="style14"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="5" style="background-color: #808080; color: #EEEEEE; font-size: medium; font-family: Times New Roman">
+                                                        <center>Vehicle Information</center>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5" align="center">
+                                                        <table id="ContentPlaceHolder1_rblVehicleRegStatus" class="aspNetDisabled rdolist">
+                                                            <tr>
+                                                                <td><span class="aspNetDisabled"><input id="ContentPlaceHolder1_rblVehicleRegStatus_0" type="radio" name="ContentPlaceHolder1_rblVehicleRegStatus" value="1" checked="checked" disabled="disabled" /><label for="ContentPlaceHolder1_rblVehicleRegStatus_0">Registered</label></span></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Type of Vehicle</td>
+                                                    <td>
+                                                        <select name="ContentPlaceHolder1_ddltypevehicle" id="ContentPlaceHolder1_ddltypevehicle" disabled="disabled" class="aspNetDisabled ddlstyleForm">
+                                                            <option selected="selected" value="">Select Vehicle</option>
+                                                            <option value="1 ">Truck/Dumper</option>
+                                                            <option value="2 ">Tractor/Trolley</option>
+                                                            <option value="6 ">Pickup</option>
+                                                        </select>
+                                                        <span id="ContentPlaceHolder1_rfvtypevehicle" style="display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_ValidatorCalloutExtender3_ClientState" id="ContentPlaceHolder1_ValidatorCalloutExtender3_ClientState" />
+                                                    </td>
+                                                    <td></td>
+                                                    <td>
+                                                        <span id="ContentPlaceHolder1_spanRegistered_vehicle_label" style="display: inline-block">Vehicle Number </span>
+                                                    </td>
+                                                    <td>
+                                                        <span id="ContentPlaceHolder1_spanRegistered_vehicle_textbox" style="display: inline-block">
+                                                            <input name="ContentPlaceHolder1_txtregno" type="text" maxlength="2" id="ContentPlaceHolder1_txtregno" class="textbox1 uppercase" required="required" onkeyup="moveCursor(this, 'txtregno1')" style="width: 30px" />
+                                                            <input name="ContentPlaceHolder1_txtregno1" type="text" maxlength="2" id="ContentPlaceHolder1_txtregno1" class="textbox1" onkeyup="moveCursor(this, 'txtregno2')" style="width: 30px" />
+                                                            <input name="ContentPlaceHolder1_txtregno2" type="text" maxlength="2" id="ContentPlaceHolder1_txtregno2" class="textbox1 uppercase" onkeyup="moveCursor(this, 'txtregno3')" style="width: 30px" />
+                                                            <input name="ContentPlaceHolder1_txtregno3" type="text" maxlength="4" id="ContentPlaceHolder1_txtregno3" class="textbox1" required="required" onkeyup="moveCursor(this, 'txtdrivername')" style="width: 45px" />
+                                                        </span>
+                                                        <span id="ContentPlaceHolder1_spanRegistered_vehicle_ex" class="infoSpan">(Ex: UK-07-BB-1234)</span>
+                                                        <br />
+                                                        <span id="spnVehInfo"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="style17" style="vertical-align: top;">Name of Driver</td>
+                                                    <td class="style14" style="vertical-align: top">
+                                                        <input name="ContentPlaceHolder1_txtdrivername" type="text" maxlength="20" id="ContentPlaceHolder1_txtdrivername" class="textboxForm" onkeypress="return ValidateAlpha(event)" />
+                                                        <span id="ContentPlaceHolder1_rfvdrivername" style="display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_ValidatorCalloutExtender7_ClientState" id="ContentPlaceHolder1_ValidatorCalloutExtender7_ClientState" />
+                                                        <br />
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="style15" style="vertical-align: top;">Mobile No(Optional)</td>
+                                                    <td>
+                                                        <input name="ContentPlaceHolder1_txtmobileno" type="text" maxlength="10" id="ContentPlaceHolder1_txtmobileno" class="textboxForm" onkeypress="return isNumberKey(event)" style="width:140px;" />
+                                                        <span id="ContentPlaceHolder1_CustomValidator1" style="color:Green;font-family:verdana;font-size:10pt;display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_ValidatorCalloutExtender2_ClientState" id="ContentPlaceHolder1_ValidatorCalloutExtender2_ClientState" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="style17">Travel Distance</td>
+                                                    <td class="style14">
+                                                        <input name="ContentPlaceHolder1_txtTravelDistance" type="text" maxlength="4" id="ContentPlaceHolder1_txtTravelDistance" class="textboxForm" onkeypress="return isNumberKey(event)" style="width:140px;" />
+                                                        <span class="infoSpan">(Kilo Meters) </span>
+                                                        <span id="ContentPlaceHolder1_rfvdistance" style="display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_ValidatorCalloutExtender10_ClientState" id="ContentPlaceHolder1_ValidatorCalloutExtender10_ClientState" />
+                                                        <br />
+                                                        <span id="ContentPlaceHolder1_lblMessage" style="color:Red;font-size:12pt;"></span>
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                    <td class="style15" style="vertical-align: top;">Travel Time</td>
+                                                    <td>
+                                                        <input name="ContentPlaceHolder1_txtHours" type="text" readonly="readonly" id="ContentPlaceHolder1_txtHours" disabled="disabled" class="aspNetDisabled" style="width: 50px; height: 22px;" />
+                                                        <span>hrs</span>
+                                                        &nbsp;
+                                                        <input name="ContentPlaceHolder1_txtMinutes" type="text" readonly="readonly" id="ContentPlaceHolder1_txtMinutes" disabled="disabled" class="aspNetDisabled" style="width: 50px; height: 22px;" />
+                                                        <span>mins</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td colspan="2"><span class="infoSpan">(Travel time is the validity of your form) </span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span id="ContentPlaceHolder1_lblPaperSrNo"> Security paper Sr. No. </span>
+                                                    </td>
+                                                    <td>
+                                                        <input name="ContentPlaceHolder1_txtPaperDept" type="text" value="UKDGM" id="ContentPlaceHolder1_txtPaperDept" disabled="disabled" class="aspNetDisabled textboxForm" style="width:65px;" />
+                                                        <input name="ContentPlaceHolder1_txtPaperSeries" type="text" maxlength="3" id="ContentPlaceHolder1_txtPaperSeries" class="textboxForm" onkeypress="return ValidateAlpha(event)" oninput="return toUpperText(this);" style="width:40px;" />
+                                                        <span id="ContentPlaceHolder1_rfvPaperSeries" style="display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_vcePaperSeries_ClientState" id="ContentPlaceHolder1_vcePaperSeries_ClientState" />
+                                                        <input name="ContentPlaceHolder1_txtPaperSrNo" type="text" maxlength="8" id="ContentPlaceHolder1_txtPaperSrNo" class="textboxForm" onkeypress="return isNumberKey(event)" onchange="validateMinLength(this);" onblur="validateMinLength(this);" style="width:100px;" />
+                                                        <span id="spnPaperSrNoerror" style="color: red;"></span>
+                                                        <span id="ContentPlaceHolder1_rfvPaperSrNo" style="display:none;"></span>
+                                                        <input type="hidden" name="ContentPlaceHolder1_vcePaperSrNo_ClientState" id="ContentPlaceHolder1_vcePaperSrNo_ClientState" />
+                                                    </td>
+                                                    <td></td>
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5">&nbsp;</td>
+                                                </tr>
+                                                <tr align="center">
+                                                    <th colspan="5">
+                                                        <input type="button" name="ContentPlaceHolder1_btnPreview" value="Recheck" onclick="showPreview()" id="ContentPlaceHolder1_btnPreview" class="button" />
+                                                        <input type="button" name="ContentPlaceHolder1_btnSubmit" value="Submit" onclick="submitForm()" id="ContentPlaceHolder1_btnSubmit" class="button fontawesomeicon" />
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Preview Modal -->
+                                    <div class="modalBackground" onclick="closePreview()"></div>
+                                    <div id="ContentPlaceHolder1_PanelPreview" class="modalPopup">
+                                        <div>
+                                            <table style="width: 100%; font-family: 'Times New Roman'; padding: 20px;">
+                                                <tr>
+                                                    <td colspan="2" align="right">
+                                                        <button type="button" onclick="closePreview()" style="background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2" align="center">
+                                                        <div style="text-align: center">
+                                                            <span style="font-size: 20px; color: black; font-weight: bold; font-family: 'Times New Roman'">Department of Geology & Mining, Uttarakhand</span>
+                                                            <br />
+                                                            <span style="font-size: 16px; color: black; font-family: 'Times New Roman'">Uttarakhand mineral (Prevention & illegal mining, transportation and storage) rules,2005 </span>
+                                                            <br />
+                                                            <span style="font-size: 14px; color: black; font-family: 'Times New Roman'">e-Transit pass form for transportation & minor mineral from stock see rule 11(D)</span>
+                                                            <br />
+                                                            <span style="font-size: 18px; color: black; font-weight: bold; text-decoration: underline; font-family: 'Times New Roman'">Form J (Invoice) </span>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div style="margin: 20px; background-color: lightyellow; border: 2px solid gold; color: green; text-align: center; padding: 10px;">
+                                                            <span>Please verify all entered details, especially the security paper number, travel distance, and vehicle number, to avoid any issues during e-Ravanna checks.</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr style="text-align: left; font-size: 14px; font-family: 'Times New Roman'">
+                                                    <th style="color: #090707; width: 300px;">Security Paper No</th>
+                                                    <td><span id="ContentPlaceHolder1_lblPreviewSPNo"></span></td>
+                                                </tr>
+                                                <tr style="text-align: left; font-size: 14px; font-family: 'Times New Roman'">
+                                                    <th style="color: #090707;">Type of Vehicle</th>
+                                                    <td><span id="ContentPlaceHolder1_lbltypeofvehicle"></span></td>
+                                                </tr>
+                                                <tr style="text-align: left; font-size: 14px; font-family: 'Times New Roman'">
+                                                    <th style="color: #090707;">Registration No of Vehicle</th>
+                                                    <td><span id="ContentPlaceHolder1_lblvehicleno"></span></td>
+                                                </tr>
+                                                <tr style="text-align: left; font-size: 14px; font-family: 'Times New Roman'">
+                                                    <th style="color: #090707;">Name of Driver</th>
+                                                    <td><span id="ContentPlaceHolder1_lblnameofdriver"></span></td>
+                                                </tr>
+                                                <tr id="ContentPlaceHolder1_trDriverMob" style="text-align: left; font-size: 14px; font-family: 'Times New Roman'">
+                                                    <th style="color: #090707;">Mobile No of Driver</th>
+                                                    <td><span id="ContentPlaceHolder1_lbldrivermobileno"></span></td>
+                                                </tr>
+                                                <tr style="text-align: left; font-size: 14px; font-family: 'Times New Roman'">
+                                                    <th style="color: #090707;">Name of Mineral</th>
+                                                    <td><span id="ContentPlaceHolder1_lblmineralname"></span></td>
+                                                </tr>
+                                                <tr style="text-align: left; font-size: 14px; font-family: 'Times New Roman'">
+                                                    <th style="color: #090707;">Weight of Mineral (In Tons)</th>
+                                                    <td><span id="ContentPlaceHolder1_lblmineralweight"></span></td>
+                                                </tr>
+                                                <tr style="text-align: left; font-size: 14px; font-family: 'Times New Roman'">
+                                                    <th style="color: #090707;">Sale Value/Approximate Value</th>
+                                                    <td><span id="ContentPlaceHolder1_lblsalevalue"></span></td>
+                                                </tr>
+                                                <tr style="text-align: left; font-size: 14px; font-family: 'Times New Roman'">
+                                                    <th style="color: #090707;">Rate of CGST+SGST(%)</th>
+                                                    <td><span id="ContentPlaceHolder1_lblrateoftax"></span></td>
+                                                </tr>
+                                                <tr style="text-align: left; font-size: 14px; font-family: 'Times New Roman'">
+                                                    <th style="color: #090707;">Name of Purchaser</th>
+                                                    <td><span id="ContentPlaceHolder1_lblpurchasername"></span></td>
+                                                </tr>
+                                                <tr style="text-align: left; font-size: 14px; font-family: 'Times New Roman'">
+                                                    <th style="color: #090707;">Address of Destination</th>
+                                                    <td><span id="ContentPlaceHolder1_lbldestinationaddress"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2" align="center" style="padding-top: 20px;">
+                                                        <button type="button" onclick="closePreview()" class="button">Close</button>
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Download Modal -->
+                                    <div id="ContentPlaceHolder1_PanelDownload" class="modalPopup">
+                                        <div class="header">Success</div>
+                                        <div class="body">
+                                            <span style="display: inline-block; vertical-align: middle; text-align: center">
+                                                <i class="fa fa-check-circle fa-3x" style="color: Green;" aria-hidden="true"></i>
+                                            </span>
+                                            <span style="display: inline-block; vertical-align: middle; text-align: center">
+                                                You have successfully generated form. Click download button to download e-Ravanna.
+                                            </span>
+                                        </div>
+                                        <div class="footer" align="center">
+                                            <input type="button" name="ContentPlaceHolder1_Button_ok" value=" Download" onclick="downloadPDF()" id="ContentPlaceHolder1_Button_ok" class="button fontawesomeicon" />&nbsp;&nbsp;
+                                            <input type="button" name="ContentPlaceHolder1_Button_cancel" value=" Close" onclick="closeDownload()" id="ContentPlaceHolder1_Button_cancel" class="button fontawesomeicon" />
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="ContentPlaceHolder1_hfCSRF" id="ContentPlaceHolder1_hfCSRF" value="993396784" />
+                                    <input type="hidden" name="ContentPlaceHolder1_hfDistrict" id="ContentPlaceHolder1_hfDistrict" value="67" />
+                                    <input type="hidden" name="ContentPlaceHolder1_hfDealerType" id="ContentPlaceHolder1_hfDealerType" value="ST" />
+                                    <input type="hidden" name="ContentPlaceHolder1_hfMovement" id="ContentPlaceHolder1_hfMovement" value="1" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
